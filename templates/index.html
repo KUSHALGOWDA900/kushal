@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <header class="text-center">
+        <img src="{{ url_for('static', filename='images/profile.jpg') }}" alt="{{ name }}" class="rounded-circle" style="width: 200px;">
+        <h1 class="my-3">{{ name }}</h1>
+        <h3 class="text-muted">{{ title }}</h3>
+        <p class="lead mt-4">I am a passionate Web Developer skilled in various technologies. Explore my work below!</p>
+    </header>
+
+    <section class="skills-section my-5">
+        <h3 class="text-center mb-4">Skills</h3>
+        <div class="row">
+            {% for skill in skills %}
+                <div class="col-md-3 text-center">
+                    <div class="card p-4">
+                        <h4>{{ skill }}</h4>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </section>
+
+{% endblock %}
