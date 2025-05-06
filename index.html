@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Agriculture Disease Identifier</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/simple-style-v8.css') }}" />
+</head>
+<body class="plant-disease-background">
+    <div class="container">
+        <h1>Agriculture Disease Identifier</h1>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            <div class="flash-messages">
+              {% for category, message in messages %}
+                <div class="flash-message {{ category }}">{{ message }}</div>
+              {% endfor %}
+            </div>
+          {% endif %}
+        {% endwith %}
+        <form method="POST" action="" onsubmit="return validateForm()" class="disease-form">
+            <label>Select Disease:</label>
+            <table class="disease-table">
+                <thead>
+                    <tr>
+                        <th>Select</th>
+                        <th>Disease Name</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for disease in diseases %}
+                    <tr>
+                        <td><input type="radio" name="disease" value="{{ disease }}"></td>
+                        <td>{{ disease }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <label for="other_disease" class="other-disease-label">Other Disease (if not in list):</label>
+            <input type="text" id="other_disease" name="other_disease" placeholder="Type disease name here" class="other-disease-input" />
+
+            <button type="submit" class="submit-button">Identify Disease</button>
+        </form>
+        <script>
+            function validateForm() {
+                const radios = document.getElementsByName('disease');
+                const otherDisease = document.getElementById('other_disease').value.trim();
+                let selected = false;
+                for (let i = 0; i < radios.length; i++) {
+                    if (radios[i].checked) {
+                        selected = true;
+                        break;
+                    }
+                }
+                if (!selected && otherDisease === '') {
+                    alert('Please select a disease or type in the other disease field.');
+                    return false;
+                }
+                return true;
+            }
+        </script>
+    </div>
+</body>
+</html>

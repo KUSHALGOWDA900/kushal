@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Disease Identification Result</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/simple-style-v8.css') }}" />
+</head>
+<body class="plant-disease-background">
+    <div class="container result-container">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            <div class="flash-messages">
+              {% for category, message in messages %}
+                <div class="flash-message {{ category }}">{{ message }}</div>
+              {% endfor %}
+            </div>
+          {% endif %}
+        {% endwith %}
+        <h1>Disease Identification Result</h1>
+        <div class="result-card">
+            <h2 class="disease-name">{{ disease }}</h2>
+            <div class="badge">Identified Disease</div>
+            <div class="result-section">
+                <h3>Solution</h3>
+                <p>{{ disease_info.solution }}</p>
+            </div>
+            <div class="result-section">
+                <h3>Medicine</h3>
+                <p>{{ disease_info.medicine }}</p>
+            </div>
+            <div class="result-section">
+                <h3>How to Apply</h3>
+                <p>{{ disease_info.application }}</p>
+            </div>
+            <div class="result-section contact-info">
+                <h3>Contact Expert</h3>
+                <p>For further assistance, please contact your local agricultural extension office or a professional agronomist.</p>
+            </div>
+
+            <a class="back-link" href="{{ url_for('index') }}">&#8592; Back to Home</a>
+
+            <div class="feedback-section">
+                <h3>Give Your Feedback</h3>
+                <form method="POST" action="{{ url_for('feedback') }}">
+                    <textarea name="feedback_text" rows="4" placeholder="Enter your feedback here..." required class="feedback-textarea"></textarea>
+                    <button type="submit" class="submit-button">Submit Feedback</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
